@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd "$(cd "$(dirname "$0")" && pwd -P)"
+
+rm -rf go-ethereum
+
+git clone --depth 1 file://$GOPATH/src/github.com/ethereum/go-ethereum
+
+docker build -t go-ethereum-swarm-test .
