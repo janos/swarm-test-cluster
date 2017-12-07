@@ -1,3 +1,3 @@
 #!/bin/sh
 
-geth --password /password --datadir $DATADIR --unlock "$(account)" $@
+geth --password /password --datadir $DATADIR --unlock "$(/account.sh)" $@

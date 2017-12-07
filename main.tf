@@ -13,7 +13,7 @@ resource "docker_container" "bootnode" {
   networks = ["${docker_network.swarm.name}"]
 
   command = [
-    "run-bootnode",
+    "/run-bootnode.sh",
     "--addr=:30301",
     "--verbosity=${var.verbosity}",
   ]
@@ -46,7 +46,7 @@ resource "docker_container" "geth" {
   networks = ["${docker_network.swarm.name}"]
 
   command = [
-    "run-geth",
+    "/run-geth.sh",
     "--bootnodes=enode://${var.bootnode_public_key}@${docker_container.bootnode.ip_address}:30301",
     "--verbosity=${var.verbosity}",
     "--networkid=${var.networkid}",
@@ -93,7 +93,7 @@ resource "docker_container" "swarm" {
   networks = ["${docker_network.swarm.name}"]
 
   command = [
-    "run-swarm",
+    "/run-swarm.sh",
     "--ens-api=http://${docker_container.geth.name}:8545",
     "--verbosity=${var.verbosity}",
     "--bzznetworkid=${var.networkid}",

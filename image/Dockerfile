@@ -16,10 +16,10 @@ FROM alpine:latest
 RUN apk add --no-cache ca-certificates
 COPY --from=builder /go/bin/* /usr/local/bin/
 
-COPY content/account.sh /usr/local/bin/account
-COPY content/run-bootnode.sh /usr/local/bin/run-bootnode
-COPY content/run-geth.sh /usr/local/bin/run-geth
-COPY content/run-swarm.sh /usr/local/bin/run-swarm
+COPY content/account.sh /account.sh
+COPY content/run-bootnode.sh /run-bootnode.sh
+COPY content/run-geth.sh /run-geth.sh
+COPY content/run-swarm.sh /run-swarm.sh
 
 # Temporary password in order to run swarm non-interactively
 COPY content/password /password
