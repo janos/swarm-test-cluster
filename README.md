@@ -12,6 +12,31 @@ intended for testing local Swarm cluster.
 - go-ethereum project under $GOPATH/src/github.com/ethereum/go-ethereum
 
 
+## First steps
+
+Make sure that you have installed the required dependencies.
+
+Setup everything:
+
+    make
+
+Create a new image:
+
+    make image
+
+Create or update the cluster:
+
+    make cluster
+
+Destroy cluster while preserving the volumes data:
+
+    make destroy-cluster
+
+Destroy cluster and remove data and local copy of go-ethereum repository:
+
+    make clean
+
+
 ## Building Docker image
 
 Docker image requires *go-ethereum* source code under $GOPATH.
