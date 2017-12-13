@@ -88,9 +88,15 @@ the cluster. Some of the interesting ones are:
     Docker containers.
   - docker\_network\_name - Docker network name.
 
-### Start more swarm containers
+## Adding and removing Swarm nodes
+
+Managing a number of nodes can be done using terraform variable *swarm_count*:
 
     terraform apply -var swarm_count=10
+
+If the number of active containers is less the the one provided in the 
+command above, new nodes will be created, otherwise existing will be
+terminated to match the desired count.
 
 
 ## State
@@ -110,3 +116,44 @@ host.
 
     terraform destroy
 
+
+## Accessing the Swarm nodes
+
+As each swarm node's HTTP API is exposed, using the swarm cluster can be
+achieved by making a HTTP requests on each node.
+
+For example, uploading a file to the cluster can be done on any node,
+let that be the second one exposed on port 8502:
+
+    curl -H "Content-Type: text/plain" --data-binary "some-data" http://localhost:8502/bzz:/
+
+Which will return the hash of the swarm content.
+
+And then requesting the data from the first node:
+
+    curl localhost:8501/bzz:/52c5aa1a731ef529915f6d23287069d34ae7c719a4570137e42fa7d4ae6312ec/
+
+where `52c5aa1a731ef529915f6d23287069d34ae7c719a4570137e42fa7d4ae6312ec`
+represents the returned data from the first `curl` request and here acts only
+as an example. You should replace it with your own hash.
+
+
+## Exposing other ports
+
+Terraform file main.tf contains references to the ports that services
+listen to within containers. If you need other ports exposed, enable
+them in main.tf file and apply with terraform command:
+
+    terraform apply
+
+
+## Accessing the node's log messages
+
+All logging is handled by Docker and to list log entries use `docker log`
+command. For example, to list logs from the third *swarm* container:
+
+    docker log swarm3
+
+To change the log verbosity level:
+
+    terraform apply -var verbosity=6
