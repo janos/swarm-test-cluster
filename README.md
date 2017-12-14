@@ -8,7 +8,7 @@ intended for testing local Swarm cluster.
 
 - Terraform https://www.terraform.io/
 - Docker https://www.docker.com/
-- Git https://git-scm.com/
+- rsync
 - go-ethereum project under $GOPATH/src/github.com/ethereum/go-ethereum
 
 
