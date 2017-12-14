@@ -24,17 +24,21 @@ Create a new image:
 
     make image
 
-Create or update the cluster:
+Create or update the cluster (non-interactive):
 
     make cluster
 
-Destroy cluster while preserving the volumes data:
+Destroy cluster while preserving the volumes data (non-interactive):
 
     make destroy-cluster
 
 Destroy cluster and remove data and local copy of go-ethereum repository:
 
     make clean
+
+Terraform commands apply and destroy in Makefile rules are non-interactive
+and will not ask for confirmation. Use it carefully. If you need to
+review and confirm changes use terraform directly as described below.
 
 
 ## Building Docker image

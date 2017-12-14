@@ -5,13 +5,13 @@ TERRAFORM ?= terraform
 all: image cluster
 
 cluster: .terraform
-	$(TERRAFORM) apply
+	$(TERRAFORM) apply -auto-approve
 
 image:
 	./image/build
 
 destroy-cluster:
-	$(TERRAFORM) destroy
+	$(TERRAFORM) destroy -force
 
 clean: destroy-cluster
 	rm -rf data
