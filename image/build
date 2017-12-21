@@ -4,4 +4,4 @@ cd "$(cd "$(dirname "$0")" && pwd -P)"
 
 rsync -a --delete --exclude='.git/' --exclude='tests/testdata' "$GOPATH/src/github.com/ethereum/go-ethereum" .
 
-docker build -t go-ethereum-swarm-test .
+docker build --no-cache -t go-ethereum-swarm-test .
