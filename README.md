@@ -153,10 +153,10 @@ them in main.tf file and apply with terraform command:
 
 ## Accessing the node's log messages
 
-All logging is handled by Docker and to list log entries use `docker log`
+All logging is handled by Docker and to list log entries use `docker logs`
 command. For example, to list logs from the third *swarm* container:
 
-    docker log swarm3
+    docker logs swarm3
 
 To change the log verbosity level:
 
