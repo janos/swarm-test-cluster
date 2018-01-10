@@ -8,6 +8,7 @@
 # .tfvars files
 *.tfvars
 
-image/go-ethereum
+swarm-test-cluster/image/go-ethereum
+swarm-test-cluster/data
 
-data
+swarm-metrics/config
