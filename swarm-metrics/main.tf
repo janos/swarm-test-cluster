@@ -12,7 +12,6 @@ resource "docker_container" "influxdb" {
   networks = ["${docker_network.metrics.name}"]
 
   env = [
-    "INFLUXDB_GRAPHITE_ENABLED=true",
     "INFLUXDB_DB=metrics",
     "INFLUXDB_ADMIN_USER=admin",
     "INFLUXDB_ADMIN_PASSWORD=admin",
@@ -21,11 +20,6 @@ resource "docker_container" "influxdb" {
   ports {
     internal = 8086
     external = 8086
-  }
-
-  ports {
-    internal = 2003
-    external = 2003
   }
 
   log_opts {
@@ -37,7 +31,7 @@ resource "docker_container" "influxdb" {
 resource "docker_container" "grafana" {
   name = "${var.docker_containers_prefix}grafana"
 
-  image    = "grafana"
+  image    = "grafana/grafana"
   networks = ["${docker_network.metrics.name}"]
 
   ports {
