@@ -16,4 +16,6 @@ resource "grafana_data_source" "influxdb_metrics" {
 
 resource "grafana_dashboard" "metrics_eval" {
   config_json = "${file("dashboards/metrics_eval.json")}"
+
+  depends_on = ["grafana_data_source.influxdb_metrics"]
 }

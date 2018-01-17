@@ -45,30 +45,6 @@ resource "docker_container" "grafana" {
   }
 }
 
-resource "docker_container" "telegraf" {
-  name = "${var.docker_containers_prefix}telegraf"
-
-  image    = "telegraf"
-  networks = ["${docker_network.metrics.name}"]
-
-  ports {
-    internal = 8125
-    external = 8125
-    protocol = "udp"
-  }
-
-  volumes {
-    host_path      = "${path.cwd}/config/telegraf.conf"
-    # host_path      = "${path.cwd}/config/telegraf.conf"
-    container_path = "/etc/telegraf/telegraf.conf"
-  }
-
-  log_opts {
-    max-file = "10"
-    max-size = "100M"
-  }
-}
-
 resource "template_dir" "config" {
   source_dir      = "${path.module}/config_templates"
   destination_dir = "${path.cwd}/config"
