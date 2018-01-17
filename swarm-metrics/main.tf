@@ -43,6 +43,11 @@ resource "docker_container" "grafana" {
     max-file = "10"
     max-size = "100M"
   }
+
+  # Wait for grafana to spin up, so that we can provision data sources and dashboards
+  provisioner "local-exec" {
+    command = "sleep 10"
+  }
 }
 
 resource "template_dir" "config" {
