@@ -15,11 +15,10 @@ Setup everything:
 
     make
 
-N.B. Due to a failed dependency, you will have to run `make` twice in order to provision Grafana data sources and dashboards.
-
 Destroy cluster and remove data:
 
     make clean
+
 
 ### Options
 
