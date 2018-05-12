@@ -103,7 +103,10 @@ resource "docker_container" "swarm" {
     "--httpaddr=0.0.0.0",
     "--nat=any",
     "--pprof",
-    "--pprofaddr=0.0.0.0"
+    "--pprofaddr=0.0.0.0",
+    "--ws",
+    "--wsaddr=0.0.0.0",
+    "--wsorigins=*"
   ]
 
   volumes {
@@ -124,6 +127,11 @@ resource "docker_container" "swarm" {
   ports {
     internal = 6060
     external = "${count.index+6061}"
+  }
+
+  ports {
+    internal = 8546
+    external = "${count.index+8601}"
   }
 
   # ports {
