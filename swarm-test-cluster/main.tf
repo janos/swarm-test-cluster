@@ -182,6 +182,8 @@ resource "docker_container" "stateth" {
     max-size = "100M"
   }
 
+  destroy_grace_seconds = 10
+
   volumes {
     host_path      = "/var/run/docker.sock"
     container_path = "/var/run/docker.sock"
