@@ -2,13 +2,16 @@
 
 TERRAFORM ?= terraform
 
-all: image cluster
+all: image jaeger cluster
 
 cluster: .terraform
 	$(TERRAFORM) apply -auto-approve
 
 image:
 	./image/build
+
+jaeger:
+	docker pull jaegertracing/all-in-one:latest
 
 destroy-cluster:
 	$(TERRAFORM) destroy -force
