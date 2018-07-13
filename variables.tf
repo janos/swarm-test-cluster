@@ -10,7 +10,7 @@ variable "verbosity" {
 
 variable "swarm_count" {
   description = "Number of swarm containers."
-  default     = "20"
+  default     = "3"
 }
 
 variable "networkid" {
