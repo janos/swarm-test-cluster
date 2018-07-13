@@ -105,6 +105,10 @@ resource "docker_container" "swarm" {
     "--pprof",
     "--pprofaddr=0.0.0.0",
     "--ws",
+    "--tracing",
+    "--tracing.endpoint=172.18.0.1:6831",
+    "--tracing.svc=swarm${count.index+1}",
+    "--metrics",
     "--wsaddr=0.0.0.0",
     "--wsorigins=*"
   ]
