@@ -110,7 +110,10 @@ resource "docker_container" "swarm" {
     "--tracing.svc=swarm${count.index+1}",
     "--metrics",
     "--metrics.influxdb.export",
+    "--metrics.influxdb.username=test",
+    "--metrics.influxdb.password=test",
     "--metrics.influxdb.endpoint=http://172.19.0.1:8086",
+    "--metrics.influxdb.host.tag=swarm${count.index + 1}",
     "--wsaddr=0.0.0.0",
     "--wsorigins=*"
   ]
