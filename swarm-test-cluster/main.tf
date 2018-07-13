@@ -174,7 +174,7 @@ resource "docker_container" "jaeger" {
 resource "docker_container" "stateth" {
   name = "stateth"
 
-  image    = "stateth"
+  image    = "nonsens3/stateth"
   networks = ["${docker_network.swarm.name}"]
 
   log_opts {
