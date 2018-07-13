@@ -105,6 +105,15 @@ resource "docker_container" "swarm" {
     "--pprof",
     "--pprofaddr=0.0.0.0",
     "--ws",
+    "--tracing",
+    "--tracing.endpoint=jaeger:6831",
+    "--tracing.svc=swarm${count.index+1}",
+    "--metrics",
+    "--metrics.influxdb.export",
+    "--metrics.influxdb.username=test",
+    "--metrics.influxdb.password=test",
+    "--metrics.influxdb.endpoint=http://stateth_influxdb:8086",
+    "--metrics.influxdb.host.tag=swarm${count.index + 1}",
     "--wsaddr=0.0.0.0",
     "--wsorigins=*"
   ]
@@ -138,4 +147,58 @@ resource "docker_container" "swarm" {
   #   internal = 30399
   #   external = "${30501+count.index}"
   # }
+}
+
+resource "docker_container" "jaeger" {
+  name = "jaeger"
+
+  image    = "jaegertracing/all-in-one:latest"
+  networks = ["${docker_network.swarm.name}"]
+
+  log_opts {
+    max-file = "10"
+    max-size = "100M"
+  }
+
+  ports {
+    internal = 6831
+    external = 6831
+  }
+
+  ports {
+    internal = 16686
+    external = 16686
+  }
+}
+
+resource "docker_container" "stateth" {
+  name = "stateth"
+
+  image    = "nonsens3/stateth"
+  networks = ["${docker_network.swarm.name}"]
+
+  log_opts {
+    max-file = "10"
+    max-size = "100M"
+  }
+
+  destroy_grace_seconds = 30
+
+  volumes {
+    host_path      = "/var/run/docker.sock"
+    container_path = "/var/run/docker.sock"
+  }
+
+  volumes {
+    host_path      = "${path.cwd}/grafana_dashboards"
+    container_path = "/grafana_dashboards"
+  }
+
+  command = [
+    "/stateth",
+    "--rm",
+    "--docker-network=swarm",
+    "--influxdb-database=metrics",
+    "--grafana-dashboards-folder=/grafana_dashboards"
+  ]
 }

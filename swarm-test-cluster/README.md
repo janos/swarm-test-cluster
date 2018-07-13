@@ -1,7 +1,11 @@
 # Go Ethereum Swarm local testing cluster
 
 This repository contains configuration files and scripts
-intended for testing local Swarm cluster.
+intended for testing local Swarm cluster, namely:
+
+- a cluster of Swarm nodes
+- InfluxDB and Grafana metrics setup
+- Jaeger distributed tracing system
 
 
 ## Dependencies
@@ -16,11 +20,11 @@ intended for testing local Swarm cluster.
 
 Make sure that you have installed the required dependencies.
 
-Setup everything:
+Setup everything (swarm cluster, metrics setup, tracing setup):
 
     make
 
-Create a new image:
+Create a new docker image for Swarm:
 
     make image
 
@@ -58,9 +62,9 @@ clone the repository from local disk and call *docker build* command.
 The image that is created will be named *go-ethereum-swarm-test*.
 
 
-## Creating the cluster
+## Creating the Swarm cluster
 
-Cluster is managed by Terraform as Docker containers from the same image
+The Swarm cluster is managed by Terraform as Docker containers from the same image
 within the dedicated Docker network.
 
 Initialize the terraform only once:
