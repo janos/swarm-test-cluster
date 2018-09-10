@@ -171,34 +171,34 @@ resource "docker_container" "jaeger" {
   }
 }
 
-resource "docker_container" "stateth" {
-  name = "stateth"
-
-  image    = "nonsens3/stateth"
-  networks = ["${docker_network.swarm.name}"]
-
-  log_opts {
-    max-file = "10"
-    max-size = "100M"
-  }
-
-  destroy_grace_seconds = 30
-
-  volumes {
-    host_path      = "/var/run/docker.sock"
-    container_path = "/var/run/docker.sock"
-  }
-
-  volumes {
-    host_path      = "${path.cwd}/grafana_dashboards"
-    container_path = "/grafana_dashboards"
-  }
-
-  command = [
-    "/stateth",
-    "--rm",
-    "--docker-network=swarm",
-    "--influxdb-database=metrics",
-    "--grafana-dashboards-folder=/grafana_dashboards"
-  ]
-}
+#resource "docker_container" "stateth" {
+#  name = "stateth"
+#
+#  image    = "nonsens3/stateth"
+#  networks = ["${docker_network.swarm.name}"]
+#
+#  log_opts {
+#    max-file = "10"
+#    max-size = "100M"
+#  }
+#
+#  destroy_grace_seconds = 30
+#
+#  volumes {
+#    host_path      = "/var/run/docker.sock"
+#    container_path = "/var/run/docker.sock"
+#  }
+#
+#  volumes {
+#    host_path      = "${path.cwd}/grafana_dashboards"
+#    container_path = "/grafana_dashboards"
+#  }
+#
+#  command = [
+#    "/stateth",
+#    "--rm",
+#    "--docker-network=swarm",
+#    "--influxdb-database=metrics",
+#    "--grafana-dashboards-folder=/grafana_dashboards"
+#  ]
+#}
