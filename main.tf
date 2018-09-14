@@ -149,27 +149,27 @@ resource "docker_container" "swarm" {
   # }
 }
 
-resource "docker_container" "jaeger" {
-  name = "jaeger"
-
-  image    = "jaegertracing/all-in-one:latest"
-  networks = ["${docker_network.swarm.name}"]
-
-  log_opts {
-    max-file = "10"
-    max-size = "100M"
-  }
-
-  ports {
-    internal = 6831
-    external = 6831
-  }
-
-  ports {
-    internal = 16686
-    external = 16686
-  }
-}
+#resource "docker_container" "jaeger" {
+#  name = "jaeger"
+#
+#  image    = "jaegertracing/all-in-one:latest"
+#  networks = ["${docker_network.swarm.name}"]
+#
+#  log_opts {
+#    max-file = "10"
+#    max-size = "100M"
+#  }
+#
+#  ports {
+#    internal = 6831
+#    external = 6831
+#  }
+#
+#  ports {
+#    internal = 16686
+#    external = 16686
+#  }
+#}
 
 #resource "docker_container" "stateth" {
 #  name = "stateth"
